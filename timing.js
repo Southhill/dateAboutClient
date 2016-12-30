@@ -1,17 +1,24 @@
 /**
  * 在下一个整点定时执行任务
  * @param  {Function} fn    传入的任务函数
- * @param  {Number}   timer 间隔时间，单位为毫秒，所以间隔30分钟应该为：1000 * 60 * 30,默认为1小时
+ * @param  {Boolean} bool    如果为true则返回一个包装好的Function
  * @return {undefined}         无返回值
  */
-function nextIntegralPointExecute(fn, timer) {
+function nextIntegralPointExecute(cb, bool) {
 	var date = new Date();
 	var dateIntegralPoint = new Date();
 	dateIntegralPoint.setHours(date.getHours() + 1);
 	dateIntegralPoint.setMinutes(0);
 	dateIntegralPoint.setSeconds(0);
 	var intervals = dateIntegralPoint - date;
-	setTimeout(integralPointTask(fn, timer), intervals);
+	if (bool) {
+		return (function() {
+			setTimeout(cb, intervals);
+		});
+	}
+	return (function() {
+			setTimeout(cb, intervals);
+		})();
 }
 /**
  * 定时任务包装函数
@@ -20,6 +27,14 @@ function nextIntegralPointExecute(fn, timer) {
  * @return {Function}         返回一个包装好的setInterval函数
  */
 function integralPointTask(fn, timer) {
-	var timer = timer || 1000 * 60 * 60 * 1;//设定定时间隔的默认值为1小时
-	return setInterval(fn, timer);
+	timer = timer || 1000 * 60 * 60 * 1;//设定定时间隔的默认值为1小时
+	setInterval(nextIntegralPointExecute(fn, true), timer);
 }
+
+
+
+function testFunction() {
+	console.log(233);
+}
+
+integralPointTask(testFunction);
