@@ -30,3 +30,25 @@ export function integralPointTask(fn, timer) {
 	timer = timer || 1000 * 60 * 60 * 1;//设定定时间隔的默认值为1小时
 	setInterval(nextIntegralPointExecute(fn, true), timer);
 }
+
+export function intervalForLikeArray(likeArray, time, duration) {
+	if (!likeArray) return false;
+	if (isFunction(likeArray)) {
+		var count = 0;
+		var interval = setInterval(function() {
+			if (count > time) {
+				clearInterval(interval);
+				return;
+			}
+			likeArray();
+			count++;
+		}, duration);
+	}
+	
+}
+function isLikeArray(obj) {
+	return obj instanceof Array || typeof obj === 'object';	
+}
+function isFunction(fn) {
+	return typeof fn === 'function';
+}	
