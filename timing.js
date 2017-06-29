@@ -36,7 +36,7 @@ export function integralPointTask(fn, timer) {
  * @param  {Number} [time=1]       定时执行的次数
  * @param  {Number} [duration=100] 间隔多长时间定时执行
  * @param  {[likeArray]} iteraObj       迭代函数的上下文
- * @return {[type]}                无返回值
+ * @return {[Boolean]}                执行完毕返回true,意外情况则返回false
  */
 export function intervalForItera(iteraFn, time = 1, duration = 100, iteraObj) {
 	if (!iteraFn) return false;
@@ -46,7 +46,7 @@ export function intervalForItera(iteraFn, time = 1, duration = 100, iteraObj) {
 			let interval = setInterval(function() {
 				if (count > time) {
 					clearInterval(interval);
-					return;
+					return true;
 				}
 				iteraFn();
 				count++;
@@ -57,7 +57,7 @@ export function intervalForItera(iteraFn, time = 1, duration = 100, iteraObj) {
 			let interval = setInterval(function() {
 				if (count > time) {
 					clearInterval(interval);
-					return;
+					return true;
 				}
 				iteraFn.call(iteraObjArray[count]);
 				count++;
