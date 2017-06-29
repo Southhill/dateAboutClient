@@ -30,25 +30,47 @@ export function integralPointTask(fn, timer) {
 	timer = timer || 1000 * 60 * 60 * 1;//设定定时间隔的默认值为1小时
 	setInterval(nextIntegralPointExecute(fn, true), timer);
 }
-
-export function intervalForLikeArray(likeArray, time, duration) {
-	if (!likeArray) return false;
-	if (isFunction(likeArray)) {
-		var count = 0;
-		var interval = setInterval(function() {
-			if (count > time) {
-				clearInterval(interval);
-				return;
-			}
-			likeArray();
-			count++;
-		}, duration);
+/**
+ * 定时执行迭代数据函数
+ * @param  {Function} iteraFn        需定时执行的迭代函数
+ * @param  {Number} [time=1]       定时执行的次数
+ * @param  {Number} [duration=100] 间隔多长时间定时执行
+ * @param  {[likeArray]} iteraObj       迭代函数的上下文
+ * @return {[type]}                无返回值
+ */
+export function intervalForItera(iteraFn, time = 1, duration = 100, iteraObj) {
+	if (!iteraFn) return false;
+	if (isFunction(iteraFn)) {
+		if(!isLikeArray(iteraObj)) {
+			let count = 0;
+			let interval = setInterval(function() {
+				if (count > time) {
+					clearInterval(interval);
+					return;
+				}
+				iteraFn();
+				count++;
+			}, duration);
+		} else {
+			let iteraObjArray = Array.prototype.slice.call(iteraObj);
+			let count = 0;
+			let interval = setInterval(function() {
+				if (count > time) {
+					clearInterval(interval);
+					return;
+				}
+				iteraFn.call(iteraObjArray[count]);
+				count++;
+			}, duration);
+		}
 	}
-	
+
 }
+
+// 工具方法
 function isLikeArray(obj) {
-	return obj instanceof Array || typeof obj === 'object';	
+	return (obj instanceof Array || typeof obj === 'object') && obj.length !== undefined;
 }
 function isFunction(fn) {
 	return typeof fn === 'function';
-}	
+}
