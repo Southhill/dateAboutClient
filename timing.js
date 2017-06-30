@@ -31,7 +31,7 @@ export function integralPointTask(fn, timer) {
 	setInterval(nextIntegralPointExecute(fn, true), timer);
 }
 /**
- * 定时执行迭代数据函数
+ * 定时执行迭代函数(数据)
  * @param  {Function} iteraFn        需定时执行的迭代函数
  * @param  {Number} [time=1]       定时执行的次数
  * @param  {Number} [duration=100] 间隔多长时间定时执行
