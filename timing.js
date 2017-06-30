@@ -1,3 +1,6 @@
+// 导入可用的tools函数
+import { isLikeArray, isFunction } from './tools.js'
+
 /**
  * 在下一个整点定时执行任务
  * @param  {Function} fn    传入的任务函数
@@ -65,12 +68,4 @@ export function intervalForItera(iteraFn, time = 1, duration = 100, iteraObj) {
 		}
 	}
 
-}
-
-// 工具方法
-function isLikeArray(obj) {
-	return (obj instanceof Array || typeof obj === 'object') && obj.length !== undefined;
-}
-function isFunction(fn) {
-	return typeof fn === 'function';
 }
