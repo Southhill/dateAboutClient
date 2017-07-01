@@ -41,7 +41,7 @@ export function integralPointTask(fn, timer) {
  * @param  {[likeArray]} iteraObj       迭代函数的上下文
  * @return {[Boolean]}                执行完毕返回true,意外情况则返回false
  */
-export function intervalForItera(iteraFn, time = 1, duration = 100, iteraObj) {
+export function interval4Itera(iteraFn, time = 1, duration = 100, iteraObj) {
 	if (!iteraFn) return false;
 	if (isFunction(iteraFn)) {
 		if(!isLikeArray(iteraObj)) {

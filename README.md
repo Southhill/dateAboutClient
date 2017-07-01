@@ -4,4 +4,4 @@
 ## 方法
 - 在下一个整点定时执行任务：`nextIntegralPointExecute`
 - 定时任务包装函数：`integralPointTask`
-- 定时执行迭代函数(数据): `intervalForItera`
+- 定时执行迭代函数(数据): `interval4Itera`
